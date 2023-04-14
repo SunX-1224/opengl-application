@@ -160,10 +160,10 @@
     <ClInclude Include="VBO.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="fragmentShader.fs" />
-    <None Include="stencil_fs.fs" />
-    <None Include="stencil_vs.vs" />
-    <None Include="vertexShader.vs" />
+    <None Include="fragmentShader.glsl" />
+    <None Include="frame_fs.glsl" />
+    <None Include="frame_vs.glsl" />
+    <None Include="vertexShader.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="brick.png" />
