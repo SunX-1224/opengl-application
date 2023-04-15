@@ -1,7 +1,15 @@
 #ifndef VAO_H
 #define VAO_H
 
-#include "VBO.h"
+#include <glad/glad.h>
+#include<glm/glm.hpp>
+
+struct Vertex {
+	glm::vec3 position;
+	glm::vec3 normals;
+	glm::vec3 color;
+	glm::vec2 texUV;
+};
 
 class VAO {
 	public:
@@ -9,7 +17,7 @@ class VAO {
 
 		VAO();
 
-		void linkVBO(VBO& vbo, GLuint layout, GLuint size, GLenum type, GLuint stride, unsigned int offset);
+		void linkVBO(GLuint layout, GLuint size, GLenum type, GLuint stride, unsigned int offset);
 		void bind();
 		void unbind();
 		void del();

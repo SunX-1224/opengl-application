@@ -1,6 +1,6 @@
 #include "texture.h"
 
-Texture::Texture(const char* path, const char* type, unsigned int slot) {
+Texture::Texture(const char* path, const char* type, unsigned int slot, int _width, int _height) {
 	int width, height, nrChannels;
 	unsigned char* data;
 	GLenum format = GL_RED;
@@ -8,11 +8,18 @@ Texture::Texture(const char* path, const char* type, unsigned int slot) {
 	m_slot = slot;
 	m_type = type;
 
-	stbi_set_flip_vertically_on_load(true);
-	data = stbi_load(path, &width, &height, &nrChannels, 0);
-
-	if (not data)
-		std::cout << "ERROR while loading the image on path : " << path << std::endl;
+	if (path == NULL) {
+		data = NULL;
+		nrChannels = 3;
+		width = _width;
+		height = _height;
+	}
+	else {
+		stbi_set_flip_vertically_on_load(true);
+		data = stbi_load(path, &width, &height, &nrChannels, 0);
+		if (not data)
+			std::cout << "ERROR while loading the image on path : " << path << std::endl;
+	}
 
 	if (nrChannels == 1)
 		format = GL_RED;
@@ -34,7 +41,8 @@ Texture::Texture(const char* path, const char* type, unsigned int slot) {
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, format, GL_UNSIGNED_BYTE, data);
 	glGenerateMipmap(GL_TEXTURE_2D);
 
-	stbi_image_free(data);
+	if (data)
+		stbi_image_free(data);
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
@@ -50,4 +58,12 @@ void Texture::bind() {
 
 void Texture::unbind() {
 	glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+void Texture::set_property(GLenum target, GLenum pname, GLenum parameter) {
+	glTexParameteri(target, pname, parameter);
+}
+
+uint32_t Texture::ID(){
+	return m_ID;
 }

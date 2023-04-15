@@ -7,17 +7,29 @@ Mesh::Mesh(std::vector<Vertex>& verts, std::vector<GLuint>& inds, std::vector<Te
 	m_textures = texs;
 
 	vao.bind();
-	VBO vbo(verts);
-	EBO ebo(inds);
 
-	vao.linkVBO(vbo, 0, 3, GL_FLOAT, sizeof(Vertex), 0);
-	vao.linkVBO(vbo, 1, 3, GL_FLOAT, sizeof(Vertex), 3 * sizeof(float));
-	vao.linkVBO(vbo, 2, 3, GL_FLOAT, sizeof(Vertex), 6 * sizeof(float));
-	vao.linkVBO(vbo, 3, 2, GL_FLOAT, sizeof(Vertex), 9 * sizeof(float)); 
+	glGenBuffers(1, &m_vbo);
+	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
+	glBufferData(GL_ARRAY_BUFFER, verts.size() * sizeof(Vertex), verts.data(), GL_STATIC_DRAW);
+
+	glGenBuffers(1, &m_ebo);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ebo);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, inds.size() * sizeof(GLuint), inds.data(), GL_STATIC_DRAW);
+
+	vao.linkVBO(0, 3, GL_FLOAT, sizeof(Vertex), 0);
+	vao.linkVBO(1, 3, GL_FLOAT, sizeof(Vertex), 3 * sizeof(float));
+	vao.linkVBO(2, 3, GL_FLOAT, sizeof(Vertex), 6 * sizeof(float));
+	vao.linkVBO(3, 2, GL_FLOAT, sizeof(Vertex), 9 * sizeof(float)); 
 
 	vao.unbind();
-	vbo.unbind();
-	ebo.unbind();
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+}
+
+void Mesh::clear(){
+	glDeleteBuffers(1, &m_vbo);
+	glDeleteBuffers(1, &m_ebo);
+	vao.del();
 }
 
 void Mesh::draw(Shader& shader,Camera& camera, glm::mat4 matrix)

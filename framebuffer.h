@@ -3,11 +3,12 @@
 #include<glad/glad.h>
 #include<iostream>
 
-#include "shader.h"
+#include "texture.h"
 
 class FrameBuffer {
 	public:
 		FrameBuffer(int width, int height, int slot);
+		~FrameBuffer();
 
 		void bind();
 		void unbind();

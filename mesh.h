@@ -2,9 +2,9 @@
 #define MESH_H
 
 #include<string>
+#include<vector>
 
 #include "VAO.h"
-#include "EBO.h"
 #include "camera.h"
 #include "texture.h"
 
@@ -15,9 +15,11 @@ class Mesh {
 		std::vector<Texture> m_textures;
 
 		Mesh(std::vector<Vertex>& verts, std::vector<GLuint>& inds, std::vector<Texture>& textures);
+		void clear();
 		void draw(Shader& shader,Camera& camera, glm::mat4 matrix = glm::mat4(1.0f));
 
 	private:
+		uint32_t m_vbo, m_ebo;
 		VAO vao;
 };
 

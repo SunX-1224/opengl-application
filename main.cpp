@@ -1,12 +1,19 @@
+/*
+	TODO:
+		- Rearrange VAO and remove VBO and EBO extractions
+		- Cubemaps
+*/
+
 #include "model.h"
 #include "framebuffer.h"
 
 #define WIDTH 1200
-#define HEIGHT 800
+#define HEIGHT 900
 
+void scrollCallback(GLFWwindow*, double, double);
 void framebuffer_size_callback(GLFWwindow*, int, int);
 void mouseCallback(GLFWwindow*, double, double);
-void scrollCallback(GLFWwindow*, double, double);
+
 
 Camera camera(glm::vec3(0.0f, 4.5f, 4.0f), glm::vec3(0.0f, 0.0f, -1.0f), WIDTH, HEIGHT);
 
@@ -21,7 +28,7 @@ int main() {
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 	glfwSetCursorPosCallback(window, mouseCallback);
 	glfwSetScrollCallback(window, scrollCallback);
-	//glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	gladLoadGL();
 	glfwSwapInterval(0);
 	glEnable(GL_DEPTH_TEST);
@@ -108,6 +115,10 @@ int main() {
 	return 0;
 }
 
+void scrollCallback(GLFWwindow* window, double xOff, double yOff) {
+    camera.processScroll(static_cast<float>(yOff));
+}
+
 void framebuffer_size_callback(GLFWwindow* window, int width, int height){
     glViewport(0, 0, width, height);
 	camera.m_aspect = (float) width / height;
@@ -115,8 +126,4 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height){
 
 void mouseCallback(GLFWwindow* window, double xPos, double yPos) {
     camera.processMouse(static_cast<float>(xPos), static_cast<float>(yPos));
-}
-
-void scrollCallback(GLFWwindow* window, double xOff, double yOff) {
-    camera.processScroll(static_cast<float>(yOff));
 }

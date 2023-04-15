@@ -30,12 +30,6 @@
     <ClCompile Include="shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="VBO.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="EBO.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="VAO.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -60,12 +54,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="shader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="VBO.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EBO.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="VAO.h">

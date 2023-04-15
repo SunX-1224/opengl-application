@@ -6,14 +6,8 @@ FrameBuffer::FrameBuffer(int width, int height, int slot) {
 	glGenFramebuffers(1, &m_ID);
 	glBindFramebuffer(GL_FRAMEBUFFER, m_ID);
 
-	glGenTextures(1, &m_texture);
-	glBindTexture(GL_TEXTURE_2D, m_texture);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-	glBindTexture(GL_TEXTURE_2D, 0);
+	Texture texture(NULL, "frame", slot, width, height);
+	m_texture = texture.ID();
 
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_texture, 0);
 
@@ -49,6 +43,13 @@ FrameBuffer::FrameBuffer(int width, int height, int slot) {
 	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
+}
+
+FrameBuffer::~FrameBuffer(){
+	glDeleteFramebuffers(1, &m_ID);
+	glDeleteVertexArrays(1, &m_vao);
+	glDeleteRenderbuffers(1, &m_rbo);
+	glDeleteTextures(1, &m_texture);
 }
 
 void FrameBuffer::bind() {

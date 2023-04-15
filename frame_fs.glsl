@@ -29,12 +29,11 @@ float kernel[9] = {
 };	
 
 void main(){
-	vec3 color = vec3(0.0f);
-
-	for(int i=0; i < 9; i++){
-		color += vec3(texture(frame, texUV + offsets[i])) * kernel[i];
-	}
-
-	fragColor = vec4(color, 1.0f);
-	//fragColor = vec4(1.0f, 0.0f, 0.0f, 0.0f);
+	//vec3 color = vec3(0.0f);
+	//for(int i=0; i < 9; i++){
+	//	color += vec3(texture(frame, texUV + offsets[i])) * kernel[i];
+	//}
+	//fragColor = vec4(color, 1.0f);
+	
+	fragColor = texture(frame, texUV);
 }

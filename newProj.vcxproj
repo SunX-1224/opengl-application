@@ -138,7 +138,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="camera.cpp" />
-    <ClCompile Include="EBO.cpp" />
     <ClCompile Include="framebuffer.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="main.cpp" />
@@ -148,18 +147,15 @@
     <ClCompile Include="stbi_image.cpp" />
     <ClCompile Include="texture.cpp" />
     <ClCompile Include="VAO.cpp" />
-    <ClCompile Include="VBO.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.h" />
-    <ClInclude Include="EBO.h" />
     <ClInclude Include="framebuffer.h" />
     <ClInclude Include="mesh.h" />
     <ClInclude Include="model.h" />
     <ClInclude Include="shader.h" />
     <ClInclude Include="texture.h" />
     <ClInclude Include="VAO.h" />
-    <ClInclude Include="VBO.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="fragmentShader.glsl" />
