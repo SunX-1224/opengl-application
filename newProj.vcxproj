@@ -139,6 +139,7 @@
   <ItemGroup>
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="EBO.cpp" />
+    <ClCompile Include="framebuffer.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mesh.cpp" />
@@ -152,6 +153,7 @@
   <ItemGroup>
     <ClInclude Include="camera.h" />
     <ClInclude Include="EBO.h" />
+    <ClInclude Include="framebuffer.h" />
     <ClInclude Include="mesh.h" />
     <ClInclude Include="model.h" />
     <ClInclude Include="shader.h" />
