@@ -21,6 +21,7 @@ class Camera{
 		void processMouse(double xPos, double yPos);
 		void processScroll(double offset);
 		void setMatrices(Shader& shader);
+		void updateAspect(float aspect);
 		glm::mat4 getView();
 		glm::mat4 getPerspective();
 
@@ -31,6 +32,7 @@ class Camera{
 		bool first_mouse = true;
 		float mouse_x, mouse_y;
 		float m_yaw, m_pitch;
+		glm::mat4 m_perspective;
 };
 
 #endif

@@ -1,7 +1,7 @@
 /*
 	TODO:
-		- Rearrange VAO and remove VBO and EBO extractions
-		- Cubemaps
+		- Minor optimizations
+		- Cubemaps and skybox
 */
 
 #include "model.h"
@@ -28,12 +28,12 @@ int main() {
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 	glfwSetCursorPosCallback(window, mouseCallback);
 	glfwSetScrollCallback(window, scrollCallback);
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	//glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	gladLoadGL();
 	glfwSwapInterval(0);
 	glEnable(GL_DEPTH_TEST);
 	//glEnable(GL_STENCIL_TEST);
-	glEnable(GL_CULL_FACE);
+	//glEnable(GL_CULL_FACE);
 	
 	glDepthFunc(GL_LESS);
 	//glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
@@ -121,9 +121,9 @@ void scrollCallback(GLFWwindow* window, double xOff, double yOff) {
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height){
     glViewport(0, 0, width, height);
-	camera.m_aspect = (float) width / height;
+	camera.updateAspect((float)width / height);
 }
 
 void mouseCallback(GLFWwindow* window, double xPos, double yPos) {
-    camera.processMouse(static_cast<float>(xPos), static_cast<float>(yPos));
+    camera.processMouse(xPos, yPos);
 }

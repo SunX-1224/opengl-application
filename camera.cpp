@@ -6,13 +6,14 @@ Camera::Camera(glm::vec3 position, glm::vec3 direction, uint16_t width, uint16_t
 	m_up = glm::vec3(0.0f, 1.0f, 0.0f);
 	m_right = glm::cross(m_forward, m_up);
 	m_up = glm::cross(m_right, m_forward);
-	m_aspect = width / height;
 
 	m_yaw = -90.0f;
 	m_pitch = 0.0f;
 
 	mouse_x = width / 2;
 	mouse_y = height / 2;
+
+	this->updateAspect(static_cast<float>(width / height));
 }
 
 void Camera::inputHandler(GLFWwindow* window, float deltaTime) {
@@ -37,12 +38,17 @@ void Camera::setMatrices(Shader& shader) {
 	shader.setMat4("projection", getPerspective());
 }
 
+void Camera::updateAspect(float aspect){
+	m_aspect = aspect;
+	m_perspective = glm::perspective(glm::radians(m_fov), m_aspect, 0.1f, 100.0f);
+}
+
 glm::mat4 Camera::getView() {
 	return glm::lookAt(m_position, m_position + m_forward, m_up);
 }
 
 glm::mat4 Camera::getPerspective() {
-	return glm::perspective(glm::radians(m_fov), m_aspect, 0.1f, 100.0f);
+	return m_perspective;
 }
 
 void Camera::processMouse(double xPos, double yPos) {
