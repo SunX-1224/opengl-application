@@ -88,6 +88,21 @@
     <None Include="frame_fs.glsl">
       <Filter>Resource Files\shaders</Filter>
     </None>
+    <None Include="cubemap_vs.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="cubemap_fs.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="light_fs.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="light_vs.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="instanced_vs.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="wall.jpg">

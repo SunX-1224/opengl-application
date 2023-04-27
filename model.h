@@ -7,7 +7,8 @@ using json = nlohmann::json;
 
 class Model {
 public:
-	Model(const char* file);
+
+	Model(const char* file, uint32_t number = 1, std::vector<glm::mat4> = {});
 
 	void draw(Shader& shader, Camera& camera);
 
@@ -20,7 +21,9 @@ private:
 	std::vector<Texture> m_loadedTextures;
 
 	std::vector<Mesh> m_meshes;
-	std::vector<glm::mat4> matricesMeshes;
+	std::vector<glm::mat4> m_matricesMeshes;
+	std::vector<glm::mat4> m_instanceMat;
+	uint32_t m_count;
 
 	void traverseNode(unsigned int nextNode, glm::mat4 matrix = glm::mat4(1.0f));
 

@@ -1,8 +1,11 @@
 #include "model.h"
 
-Model::Model(const char* file) {
+Model::Model(const char* file, uint32_t number, std::vector<glm::mat4> instanceMat) {
 	std::string text = get_file_content(file);
 	m_JSON = json::parse(text);
+
+	m_count = number;
+	m_instanceMat = instanceMat;
 
 	m_file = file;
 	m_data = get_data();
@@ -11,9 +14,8 @@ Model::Model(const char* file) {
 }
 
 void Model::draw(Shader& shader, Camera& camera){
-	glm::mat4 model;
 	for (unsigned int i = 0; i < m_meshes.size(); i++) {
-		m_meshes[i].draw(shader, camera, matricesMeshes[i]);
+		m_meshes[i].draw(shader, camera, m_matricesMeshes[i]);
 	}
 }
 
@@ -77,7 +79,7 @@ void Model::traverseNode(unsigned int nextNode, glm::mat4 matrix){
 	// Check if the node contains a mesh and if it does load it
 	if (node.find("mesh") != node.end())
 	{
-		matricesMeshes.push_back(matNextNode);
+		m_matricesMeshes.push_back(matNextNode);
 
 		load_mesh(node["mesh"]);
 		//std::cout << "Loaded a mesh : " << node["name"] << std::endl;
@@ -110,7 +112,7 @@ void Model::load_mesh(unsigned int index){
 	std::vector<GLuint> indices = get_indices(m_JSON["accessors"][indAccInd]);
 	std::vector<Texture> textures = get_textures();
 
-	m_meshes.push_back(Mesh(vertices, indices, textures));
+	m_meshes.push_back(Mesh(vertices, indices, textures, m_count, m_instanceMat));
 }
 
 std::vector<unsigned char> Model::get_data() {

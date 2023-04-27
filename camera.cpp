@@ -54,11 +54,12 @@ glm::mat4 Camera::getPerspective() {
 void Camera::processMouse(double xPos, double yPos) {
 	if (this->first_mouse)
 		mouse_x = xPos, mouse_y = yPos, first_mouse = false;
+
 	m_yaw += (xPos - mouse_x) * m_sensitivity;
 	m_pitch -= (yPos - mouse_y) * m_sensitivity;
 	mouse_x = xPos, mouse_y = yPos;
 
-	m_pitch = m_pitch > 90.0f ? 90.0f : m_pitch < -90.0f ? -90.0f : m_pitch;
+	m_pitch = m_pitch > 85.0f ? 85.0f : m_pitch < -85.0f ? -85.0f : m_pitch;
 
 	m_forward.x += cos(glm::radians(m_yaw)) * cos(glm::radians(m_pitch));
 	m_forward.y += sin(glm::radians(m_pitch));
